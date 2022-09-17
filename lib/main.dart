@@ -1,14 +1,29 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:maybe_movie/src/app/app.dart';
+import 'package:maybe_movie/src/app/app_cubit.dart';
+import 'package:maybe_movie/src/di/di_host.dart';
+import 'package:maybe_movie/src/presentation/base/cubit/host_cubit.dart';
+import 'package:maybe_movie/src/presentation/base/localization/localization_widget.dart';
+import 'package:easy_localization/easy_localization.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  await EasyLocalization.ensureInitialized();
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp();
-  }
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then(
+    (_) {
+      runApp(
+        const LocalizationWidget(
+          child: DIHost(
+            child: HostCubit<AppCubit>(
+              child: MaybeMovie(),
+            ),
+          ),
+        ),
+      );
+    },
+  );
 }
