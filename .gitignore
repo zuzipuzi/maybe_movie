@@ -8,6 +8,10 @@
 .buildlog/
 .history
 .svn/
+di.config.dart
+locale_keys.g.dart
+*.g.dart
+*.freezed.dart
 
 # IntelliJ related
 *.iml
