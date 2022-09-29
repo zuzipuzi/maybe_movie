@@ -26,7 +26,6 @@
   "repeat_please": "Repeat, please",
  "favorites": "Favorites",
   "tape": "Tape",
-  "search": "Search",
   "profile": "Profile",
   "no_internet": "No internet connection",
   "no_internet_body": "Your device cannot access the internet. Please connect to a wi-fi network or switch on the mobile internet.",
@@ -39,5 +38,11 @@
   "back": "Back",
   "field_must_be_filled": "Field must be filled",
   "yes": "Yes",
-  "no": "No"
+  "no": "No",
+  "dark": "Dark",
+  "light": "Light",
+  "log_out": "Log out",
+  "change_photo": "Change photo",
+  "save_changes": "Save changes",
+  "setting":  "Setting"
 }

@@ -1,1 +1,1 @@
-enum Theme { dark, light }
+enum UserTheme { dark, light }

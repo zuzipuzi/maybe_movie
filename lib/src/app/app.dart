@@ -2,6 +2,7 @@ import 'package:beamer/beamer.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:maybe_movie/src/app/app_cubit.dart';
+import 'package:maybe_movie/src/domain/entities/settings/theme.dart';
 import 'package:maybe_movie/src/presentation/base/cubit/cubit_widget.dart';
 import 'package:maybe_movie/src/presentation/base/cubit/host_cubit.dart';
 import 'package:maybe_movie/src/presentation/base/navigation/navigation.dart';
@@ -20,16 +21,18 @@ class MaybeMovie extends CubitWidget<AppState, AppCubit> {
   @override
   Widget buildWidget(BuildContext context) {
     precacheImage(const AssetImage("assets/images/logo.jpg"), context);
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      supportedLocales: context.supportedLocales,
-      localizationsDelegates: context.localizationDelegates,
-      locale: context.locale,
-      routeInformationParser: BeamerParser(),
-      routerDelegate: routerDelegate,
-      title: 'Maybe movie?',
-      theme: Themes.light,
-      builder: (context, child) => HostCubit<ErrorWrapperCubit>(child: child!),
+    return observeState(
+      builder: (context, state) => MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        supportedLocales: context.supportedLocales,
+        localizationsDelegates: context.localizationDelegates,
+        locale: context.locale,
+        routeInformationParser: BeamerParser(),
+        routerDelegate: routerDelegate,
+        title: 'Maybe movie?',
+        theme: state.user.theme == UserTheme.light ? Themes.light :Themes.dark,
+        builder: (context, child) => HostCubit<ErrorWrapperCubit>(child: child!),
+      ),
     );
   }
 }

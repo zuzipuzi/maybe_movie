@@ -13,7 +13,7 @@ class FormFieldWidget extends StatefulWidget {
     this.focusNode,
   }) : super(key: key);
 
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final TextInputType keyboardType;
   final bool isPasswordField;
   final String? labelText;

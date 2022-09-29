@@ -84,7 +84,6 @@ class AuthRepositoryImpl implements AuthRepository {
       await _userDataSource.createUser(
         email: params.email,
         name: params.name,
-        password: params.password,
       );
     } on FirebaseException catch (error) {
       throw _firebaseErrorMapper.map(error);

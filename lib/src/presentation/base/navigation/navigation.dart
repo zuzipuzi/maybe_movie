@@ -7,8 +7,10 @@ import 'package:maybe_movie/src/presentation/screens/favorites/favorites_screen.
 import 'package:maybe_movie/src/presentation/screens/home/home_cubit.dart';
 import 'package:maybe_movie/src/presentation/screens/home/home_screen.dart';
 import 'package:maybe_movie/src/presentation/screens/auth/auth_screen.dart';
+import 'package:maybe_movie/src/presentation/screens/profile/profile_cubit.dart';
 import 'package:maybe_movie/src/presentation/screens/profile/profile_screen.dart';
-import 'package:maybe_movie/src/presentation/screens/search/search_screen.dart';
+import 'package:maybe_movie/src/presentation/screens/profile/setting/setting_cubit.dart';
+import 'package:maybe_movie/src/presentation/screens/profile/setting/setting_screen.dart';
 
 final routerDelegate = BeamerDelegate(
   guards: [
@@ -27,9 +29,13 @@ final routerDelegate = BeamerDelegate(
       HomeScreen.screenName: (c, s, o) => const HostCubit<HomeCubit>(
             child: HomeScreen(),
           ),
-      SearchScreen.screenName: (c, s, o) => const SearchScreen(),
       FavoritesScreen.screenName: (c, s, o) => const FavoritesScreen(),
-      ProfileScreen.screenName: (c, s, o) => const ProfileScreen(),
+      ProfileScreen.screenName: (c, s, o) => const HostCubit<ProfileCubit>(
+            child: ProfileScreen(),
+          ),
+      SettingScreen.screenName: (c, s, o) => const HostCubit<SettingCubit>(
+            child: SettingScreen(),
+          ),
     },
   ),
 );

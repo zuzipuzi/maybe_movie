@@ -6,6 +6,16 @@ part 'user.freezed.dart';
 
 part 'user.g.dart';
 
+const mockedUser = User(
+  id: '1',
+  email: 'email',
+  name: 'name',
+  image: '',
+  favoritesMoviesIds: [],
+  theme: UserTheme.light,
+  language: Language.en,
+);
+
 @freezed
 class User with _$User {
   const factory User({
@@ -14,7 +24,7 @@ class User with _$User {
     required String name,
     required String image,
     required List<String> favoritesMoviesIds,
-    required Theme theme,
+    required UserTheme theme,
     required Language language,
   }) = _User;
 
