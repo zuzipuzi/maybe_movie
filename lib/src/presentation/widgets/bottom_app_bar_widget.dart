@@ -4,7 +4,6 @@ import 'package:maybe_movie/src/presentation/base/localization/locale_keys.g.dar
 import 'package:maybe_movie/src/presentation/screens/favorites/favorites_screen.dart';
 import 'package:maybe_movie/src/presentation/screens/home/home_screen.dart';
 import 'package:maybe_movie/src/presentation/screens/profile/profile_screen.dart';
-import 'package:maybe_movie/src/presentation/screens/search/search_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class BottomAppBarWidget extends StatelessWidget {
@@ -32,17 +31,9 @@ class BottomAppBarWidget extends StatelessWidget {
             ),
             _buildBottomBarItem(
               context,
-              SearchScreen.screenName,
-              "assets/images/search.svg",
-              1,
-              LocaleKeys.search,
-              false,
-            ),
-            _buildBottomBarItem(
-              context,
               FavoritesScreen.screenName,
               "assets/images/favorites.svg",
-              2,
+              1,
               LocaleKeys.favorites,
               true,
             ),
@@ -50,7 +41,7 @@ class BottomAppBarWidget extends StatelessWidget {
               context,
               ProfileScreen.screenName,
               "assets/images/profile.svg",
-              3,
+              2,
               LocaleKeys.profile,
               false,
             ),

@@ -11,7 +11,7 @@ class FavoritesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BasicScaffold(
-      bottomBarItemIndex: 2,
+      bottomBarItemIndex: 1,
       child: ErrorWrapper(
         child: _buildFridgeBody(context),
       ),
