@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:maybe_movie/src/presentation/base/localization/locale_keys.g.dart';
 import 'package:maybe_movie/src/presentation/screens/favorites/favorites_screen.dart';
 import 'package:maybe_movie/src/presentation/screens/home/home_screen.dart';
+import 'package:maybe_movie/src/presentation/screens/parse/parse_screen.dart';
 import 'package:maybe_movie/src/presentation/screens/profile/profile_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -31,7 +32,7 @@ class BottomAppBarWidget extends StatelessWidget {
             ),
             _buildBottomBarItem(
               context,
-              FavoritesScreen.screenName,
+              ParseScreen.screenName,
               "assets/images/favorites.svg",
               1,
               LocaleKeys.favorites,

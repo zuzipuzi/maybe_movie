@@ -7,6 +7,8 @@ import 'package:maybe_movie/src/presentation/screens/favorites/favorites_screen.
 import 'package:maybe_movie/src/presentation/screens/home/home_cubit.dart';
 import 'package:maybe_movie/src/presentation/screens/home/home_screen.dart';
 import 'package:maybe_movie/src/presentation/screens/auth/auth_screen.dart';
+import 'package:maybe_movie/src/presentation/screens/parse/parse_cubit.dart';
+import 'package:maybe_movie/src/presentation/screens/parse/parse_screen.dart';
 import 'package:maybe_movie/src/presentation/screens/profile/profile_cubit.dart';
 import 'package:maybe_movie/src/presentation/screens/profile/profile_screen.dart';
 import 'package:maybe_movie/src/presentation/screens/profile/setting/setting_cubit.dart';
@@ -36,6 +38,8 @@ final routerDelegate = BeamerDelegate(
       SettingScreen.screenName: (c, s, o) => const HostCubit<SettingCubit>(
             child: SettingScreen(),
           ),
+      ParseScreen.screenName: (c, s, o) =>
+          const HostCubit<ParseCubit>(child: ParseScreen()),
     },
   ),
 );
