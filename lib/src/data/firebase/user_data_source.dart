@@ -91,4 +91,20 @@ class UserDataSource {
       'image': imageUrl,
     });
   }
+
+  Future<void> addMovieToFavoriteData({
+    required List<String> movieId,
+  }) async {
+    return await _usersCollection.doc(user!.uid).update({
+      'favoritesMoviesIds': movieId,
+    });
+  }
+
+  Future<void> removeMovieFromFavoriteData({
+    required List<String> movieId,
+  }) async {
+    return await _usersCollection.doc(user!.uid).update({
+      'favoritesMoviesIds': movieId,
+    });
+  }
 }

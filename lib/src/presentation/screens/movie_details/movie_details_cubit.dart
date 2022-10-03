@@ -9,25 +9,25 @@ import 'package:maybe_movie/src/domain/repositories/user_repository.dart';
 import 'package:maybe_movie/src/presentation/features/error_wrapper_cubit.dart';
 import 'package:maybe_movie/src/utils/logger.dart';
 
-part 'home_state.dart';
+part 'movie_details_state.dart';
 
 @Injectable()
-class HomeCubit extends Cubit<HomeState> {
-  HomeCubit(this._movieRepository, this._appCubit, this._userRepository,
+class MovieDetailsCubit extends Cubit<MovieDetailsState> {
+  MovieDetailsCubit(this._movieRepository, this._appCubit, this._userRepository,
       this._errorWrapperCubit)
-      : super(const HomeState());
+      : super(const MovieDetailsState());
 
   final MovieRepository _movieRepository;
   final AppCubit _appCubit;
   final UserRepository _userRepository;
   final ErrorWrapperCubit _errorWrapperCubit;
 
-  final logger = getLogger('HomeCubit');
+  final logger = getLogger('MovieDetailsCubit');
 
-  Future<void> getAllMovies() async {
+  Future<void> getMovie(String movieId) async {
     try {
-      final allMovies = await _movieRepository.getAllMovies();
-      emit(state.copyWith(allMovies: allMovies));
+      final movie = await _movieRepository.getMovie(movieId);
+      emit(state.copyWith(movie: movie));
     } on Exception catch (error) {
       _errorWrapperCubit.processException(error);
     }
@@ -70,21 +70,6 @@ class HomeCubit extends Cubit<HomeState> {
       emit(state.copyWith(
           currentUser:
               state.currentUser.copyWith(favoritesMoviesIds: listFavorites)));
-    } on Exception catch (error) {
-      _errorWrapperCubit.processException(error);
-    }
-  }
-
-  Future<void> searchMovie(String title) async {
-    try {
-      List<Movie> movies = [];
-      for (var movie in state.allMovies) {
-        if (movie.title.toLowerCase().contains(title.toLowerCase())) {
-          movies.add(movie);
-        }
-      }
-
-      emit(state.copyWith(searchedMovies: movies));
     } on Exception catch (error) {
       _errorWrapperCubit.processException(error);
     }

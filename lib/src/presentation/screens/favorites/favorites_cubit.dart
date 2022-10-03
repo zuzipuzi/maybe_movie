@@ -9,29 +9,20 @@ import 'package:maybe_movie/src/domain/repositories/user_repository.dart';
 import 'package:maybe_movie/src/presentation/features/error_wrapper_cubit.dart';
 import 'package:maybe_movie/src/utils/logger.dart';
 
-part 'home_state.dart';
+part 'favorites_state.dart';
 
 @Injectable()
-class HomeCubit extends Cubit<HomeState> {
-  HomeCubit(this._movieRepository, this._appCubit, this._userRepository,
+class FavoritesCubit extends Cubit<FavoritesState> {
+  FavoritesCubit(this._movieRepository, this._appCubit, this._userRepository,
       this._errorWrapperCubit)
-      : super(const HomeState());
+      : super(const FavoritesState());
 
   final MovieRepository _movieRepository;
   final AppCubit _appCubit;
   final UserRepository _userRepository;
   final ErrorWrapperCubit _errorWrapperCubit;
 
-  final logger = getLogger('HomeCubit');
-
-  Future<void> getAllMovies() async {
-    try {
-      final allMovies = await _movieRepository.getAllMovies();
-      emit(state.copyWith(allMovies: allMovies));
-    } on Exception catch (error) {
-      _errorWrapperCubit.processException(error);
-    }
-  }
+  final logger = getLogger('FavoritesCubit');
 
   Future<void> getUserParams() async {
     _appCubit.getCurrentUser();
@@ -39,6 +30,16 @@ class HomeCubit extends Cubit<HomeState> {
     emit(state.copyWith(
       currentUser: user,
     ));
+  }
+
+  Future<void> getFavoritesMovies() async {
+    try {
+      final allMovies = await _movieRepository
+          .getFavoritesMovieList(state.currentUser.favoritesMoviesIds);
+      emit(state.copyWith(favoritesMovies: allMovies));
+    } on Exception catch (error) {
+      _errorWrapperCubit.processException(error);
+    }
   }
 
   Future<void> addMovieToFavorite(String movieId) async {
@@ -70,21 +71,7 @@ class HomeCubit extends Cubit<HomeState> {
       emit(state.copyWith(
           currentUser:
               state.currentUser.copyWith(favoritesMoviesIds: listFavorites)));
-    } on Exception catch (error) {
-      _errorWrapperCubit.processException(error);
-    }
-  }
-
-  Future<void> searchMovie(String title) async {
-    try {
-      List<Movie> movies = [];
-      for (var movie in state.allMovies) {
-        if (movie.title.toLowerCase().contains(title.toLowerCase())) {
-          movies.add(movie);
-        }
-      }
-
-      emit(state.copyWith(searchedMovies: movies));
+      getFavoritesMovies();
     } on Exception catch (error) {
       _errorWrapperCubit.processException(error);
     }

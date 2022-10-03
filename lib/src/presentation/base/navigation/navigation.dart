@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:maybe_movie/src/app/app_cubit.dart';
 import 'package:maybe_movie/src/presentation/base/cubit/host_cubit.dart';
+import 'package:maybe_movie/src/presentation/screens/favorites/favorites_cubit.dart';
 import 'package:maybe_movie/src/presentation/screens/favorites/favorites_screen.dart';
 import 'package:maybe_movie/src/presentation/screens/home/home_cubit.dart';
 import 'package:maybe_movie/src/presentation/screens/home/home_screen.dart';
 import 'package:maybe_movie/src/presentation/screens/auth/auth_screen.dart';
+import 'package:maybe_movie/src/presentation/screens/movie_details/movie_details_cubit.dart';
+import 'package:maybe_movie/src/presentation/screens/movie_details/movie_details_screen.dart';
 import 'package:maybe_movie/src/presentation/screens/profile/profile_cubit.dart';
 import 'package:maybe_movie/src/presentation/screens/profile/profile_screen.dart';
 import 'package:maybe_movie/src/presentation/screens/profile/setting/setting_cubit.dart';
@@ -29,12 +32,17 @@ final routerDelegate = BeamerDelegate(
       HomeScreen.screenName: (c, s, o) => const HostCubit<HomeCubit>(
             child: HomeScreen(),
           ),
-      FavoritesScreen.screenName: (c, s, o) => const FavoritesScreen(),
+      FavoritesScreen.screenName: (c, s, o) =>
+          const HostCubit<FavoritesCubit>(child: FavoritesScreen()),
       ProfileScreen.screenName: (c, s, o) => const HostCubit<ProfileCubit>(
             child: ProfileScreen(),
           ),
       SettingScreen.screenName: (c, s, o) => const HostCubit<SettingCubit>(
             child: SettingScreen(),
+          ),
+      MovieDetailsScreen.screenName: (c, s, o) =>
+          const HostCubit<MovieDetailsCubit>(
+            child: MovieDetailsScreen(),
           ),
     },
   ),

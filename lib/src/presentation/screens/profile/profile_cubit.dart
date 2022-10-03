@@ -30,14 +30,12 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   final logger = getLogger('ProfileCubit');
 
-  void getUserParams() async {
-    emit(state.copyWith(userLoading: true));
+  Future<void> getUserParams() async {
     _appCubit.getCurrentUser();
     final user = _appCubit.state.user;
     emit(state.copyWith(
       currentUser: user,
     ));
-    emit(state.copyWith(userLoading: false));
   }
 
   Future<void> onThemeChanged(bool isThemeDark) async {

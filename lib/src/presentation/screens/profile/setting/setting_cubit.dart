@@ -7,6 +7,7 @@ import 'package:maybe_movie/src/app/app_cubit.dart';
 import 'package:maybe_movie/src/domain/entities/settings/update_params.dart';
 import 'package:maybe_movie/src/domain/entities/user/user.dart';
 import 'package:maybe_movie/src/domain/repositories/user_repository.dart';
+import 'package:maybe_movie/src/presentation/features/error_wrapper_cubit.dart';
 
 part 'setting_state.dart';
 
@@ -15,10 +16,12 @@ class SettingCubit extends Cubit<SettingState> {
   SettingCubit(
     this._appCubit,
     this._userRepository,
+    this._errorWrapperCubit,
   ) : super(const SettingState());
 
   final AppCubit _appCubit;
   final UserRepository _userRepository;
+  final ErrorWrapperCubit _errorWrapperCubit;
 
   void getUserParams() async {
     final user = _appCubit.state.user;
@@ -36,18 +39,26 @@ class SettingCubit extends Cubit<SettingState> {
   }
 
   Future<void> onImageChanged(File image) async {
-    emit(state.copyWith(image: image));
-    await _userRepository.updateImage(image);
-    await _appCubit.getCurrentUser();
+    try {
+      emit(state.copyWith(image: image));
+      await _userRepository.updateImage(image);
+      await _appCubit.getCurrentUser();
+    } on Exception catch (error) {
+      _errorWrapperCubit.processException(error);
+    }
   }
 
   Future<void> updateUserInfo() async {
-    final params = UpdateUserParams(
-      name: state.name == "" ? state.currentUser.name : state.name,
-      email: state.email == "" ? state.currentUser.email : state.email,
-    );
+    try {
+      final params = UpdateUserParams(
+        name: state.name == "" ? state.currentUser.name : state.name,
+        email: state.email == "" ? state.currentUser.email : state.email,
+      );
 
-    await _userRepository.updateParams(params);
-    await _appCubit.getCurrentUser();
+      await _userRepository.updateParams(params);
+      await _appCubit.getCurrentUser();
+    } on Exception catch (error) {
+      _errorWrapperCubit.processException(error);
+    }
   }
 }

@@ -30,6 +30,7 @@ class AppCubit extends Cubit<AppState> {
       emit(state.copyWith(isUserLoggedIn: isUserLoggedIn));
       if (isUserLoggedIn) {
         getCurrentUser();
+        logger.i(state.user);
       }
     } on Exception catch (error) {
       logger.e(error);
@@ -41,8 +42,6 @@ class AppCubit extends Cubit<AppState> {
       final user = await _userRepository.getCurrentUser();
 
       emit(state.copyWith(user: user));
-
-      logger.i(state.user);
     } on Exception catch (error) {
       logger.e(error);
     }

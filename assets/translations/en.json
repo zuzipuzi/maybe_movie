@@ -44,5 +44,14 @@
   "log_out": "Log out",
   "change_photo": "Change photo",
   "save_changes": "Save changes",
-  "setting":  "Setting"
+  "setting":  "Setting",
+  "details":  "Details",
+  "awards": "Awards",
+  "starring": "Starring",
+  "year": "year",
+  "released": "released",
+  "duration": "duration",
+  "country": "country",
+  "director": "director",
+  "search_movie": "Search movie..."
 }

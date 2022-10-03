@@ -69,4 +69,24 @@ class UserRepositoryImpl implements UserRepository {
       throw Exception();
     }
   }
+
+  @override
+  Future<void> addMovieToFavorite(List<String> movieId) async {
+    try {
+      await _userDataSource.addMovieToFavoriteData(movieId: movieId);
+    } on Exception catch (error) {
+      logger.e(error);
+      throw Exception();
+    }
+  }
+
+  @override
+  Future<void> removeMovieFromFavorite(List<String> movieId) async {
+    try {
+      await _userDataSource.removeMovieFromFavoriteData(movieId: movieId);
+    } on Exception catch (error) {
+      logger.e(error);
+      throw Exception();
+    }
+  }
 }

@@ -7,11 +7,13 @@ class BasicScaffold extends StatelessWidget {
     required this.child,
     this.bottomBarItemIndex,
     this.withSafeArea = true,
+    this.appBar,
   }) : super(key: key);
 
   final Widget child;
   final int? bottomBarItemIndex;
   final bool withSafeArea;
+  final PreferredSizeWidget? appBar;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,7 @@ class BasicScaffold extends StatelessWidget {
               child: child,
             )
           : child,
+      appBar: appBar,
     );
   }
 }
