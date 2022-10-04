@@ -12,4 +12,8 @@ abstract class UserRepository {
   Future<void> updateSetting(SettingParams params);
 
   Future<void> updateImage(File image);
+
+  Future<void> addMovieToFavorite(List <String> movieId);
+
+  Future<void> removeMovieFromFavorite(List <String> movieId);
 }

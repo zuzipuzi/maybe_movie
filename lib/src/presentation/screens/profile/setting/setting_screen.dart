@@ -7,6 +7,7 @@ import 'package:maybe_movie/src/presentation/base/localization/locale_keys.g.dar
 import 'package:maybe_movie/src/presentation/features/error_wrapper_widget.dart';
 import 'package:maybe_movie/src/presentation/screens/profile/profile_screen.dart';
 import 'package:maybe_movie/src/presentation/screens/profile/setting/setting_cubit.dart';
+import 'package:maybe_movie/src/presentation/widgets/app_bar_widget.dart';
 import 'package:maybe_movie/src/presentation/widgets/basic_scaffold.dart';
 import 'package:maybe_movie/src/presentation/widgets/button_widget.dart';
 import 'package:maybe_movie/src/presentation/widgets/form_field_widget.dart';
@@ -56,7 +57,11 @@ class _SettingScreenState
   @override
   Widget buildWidget(BuildContext context) {
     return BasicScaffold(
-      bottomBarItemIndex: 3,
+      appBar: appBarWidget(
+        context,
+        label: LocaleKeys.setting.tr(),
+        leading: _buildButtonBack(),
+      ),
       child: ErrorWrapper(
         child: observeState(
           builder: (context, state) => _buildSettingBody(),
@@ -72,69 +77,62 @@ class _SettingScreenState
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            _buildAppBar(),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: screenSize.width * 0.92,
-              child: FormFieldWidget(
-                controller: _nameController,
-                hintText: _nameController.text == ""
-                    ? state.currentUser.name
-                    : _nameController.text,
-                key: _nameTextFieldKey,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              const SizedBox(height: 20),
+              SizedBox(
+                width: screenSize.width * 0.92,
+                child: FormFieldWidget(
+                  controller: _nameController,
+                  hintText: _nameController.text == ""
+                      ? state.currentUser.name
+                      : _nameController.text,
+                  key: _nameTextFieldKey,
+                ),
               ),
-            ),
-            const SizedBox(height: 20),
-            SizedBox(
-              width: screenSize.width * 0.92,
-              child: FormFieldWidget(
-                controller: _emailController,
-                hintText: _emailController.text == ""
-                    ? state.currentUser.email
-                    : _emailController.text,
-                key: _emailTextFieldKey,
+              const SizedBox(height: 20),
+              SizedBox(
+                width: screenSize.width * 0.92,
+                child: FormFieldWidget(
+                  controller: _emailController,
+                  hintText: _emailController.text == ""
+                      ? state.currentUser.email
+                      : _emailController.text,
+                  key: _emailTextFieldKey,
+                ),
               ),
-            ),
-            const SizedBox(height: 30),
-            ButtonWidget(
-              label: LocaleKeys.change_photo.tr(),
-              onPressed: () async {
-                final image = await getFromGallery();
-                if (image != null) {
-                  cubit(context).onImageChanged(image);
-                }
-              },
-              isSecondaryStyle: true,
-            ),
-            SizedBox(height: screenSize.height * 0.43),
-            ButtonWidget(
+              const SizedBox(height: 30),
+              ButtonWidget(
+                label: LocaleKeys.change_photo.tr(),
                 onPressed: () async {
-                  await cubit(context).updateUserInfo();
+                  final image = await getFromGallery();
+                  if (image != null) {
+                    cubit(context).onImageChanged(image);
+                  }
                 },
-                label: LocaleKeys.save_changes.tr())
-          ]),
+                isSecondaryStyle: true,
+              ),
+              SizedBox(height: screenSize.height * 0.43),
+              ButtonWidget(
+                  onPressed: () async {
+                    await cubit(context).updateUserInfo();
+                  },
+                  label: LocaleKeys.save_changes.tr())
+            ]),
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildAppBar() {
+  Widget _buildButtonBack() {
     final theme = Theme.of(context);
-    return AppBar(
-      title: Text(
-        LocaleKeys.setting.tr(),
-        style: theme.textTheme.headline6!
-            .copyWith(color: theme.colorScheme.onPrimary),
-      ),
-      centerTitle: true,
-      backgroundColor: theme.colorScheme.primary,
-      leading: IconButton(
+    return IconButton(
         icon: Icon(Icons.arrow_back, color: theme.colorScheme.onPrimary),
         onPressed: () {
           Beamer.of(context).beamToReplacementNamed(ProfileScreen.screenName);
-        },
-      ),
-    );
+        });
   }
 }

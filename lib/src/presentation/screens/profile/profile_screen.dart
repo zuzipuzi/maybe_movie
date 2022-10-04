@@ -8,6 +8,7 @@ import 'package:maybe_movie/src/presentation/features/error_wrapper_widget.dart'
 import 'package:maybe_movie/src/presentation/screens/auth/auth_screen.dart';
 import 'package:maybe_movie/src/presentation/screens/profile/profile_cubit.dart';
 import 'package:maybe_movie/src/presentation/screens/profile/setting/setting_screen.dart';
+import 'package:maybe_movie/src/presentation/widgets/app_bar_widget.dart';
 import 'package:maybe_movie/src/presentation/widgets/basic_scaffold.dart';
 import 'package:maybe_movie/src/presentation/widgets/button_widget.dart';
 import 'package:maybe_movie/src/utils/logger.dart';
@@ -36,6 +37,11 @@ class _ProfileScreenState
   @override
   Widget buildWidget(BuildContext context) {
     return BasicScaffold(
+      appBar: appBarWidget(
+        context,
+        label: LocaleKeys.profile.tr(),
+        actions: [_buildSettingButton()],
+      ),
       bottomBarItemIndex: 2,
       child: ErrorWrapper(
         child: observeState(
@@ -48,12 +54,11 @@ class _ProfileScreenState
   Widget _buildProfileBody() {
     final screenSize = MediaQuery.of(context).size;
     return observeState(
-        builder: (context, state) => state.userLoading
+        builder: (context, state) => state.currentUser == mockedUser
             ? const Center(child: CircularProgressIndicator())
             : SingleChildScrollView(
                 child: Column(
                   children: [
-                    _buildAppBar(),
                     const SizedBox(height: 20),
                     _buildImage(state),
                     const SizedBox(height: 20),
@@ -67,25 +72,13 @@ class _ProfileScreenState
               ));
   }
 
-  Widget _buildAppBar() {
+  Widget _buildSettingButton() {
     final theme = Theme.of(context);
-    return AppBar(
-      title: Text(
-        LocaleKeys.profile.tr(),
-        style: theme.textTheme.headline6!
-            .copyWith(color: theme.colorScheme.onPrimary),
-      ),
-      centerTitle: true,
-      actions: [
-        IconButton(
-            onPressed: () {
-              Beamer.of(context)
-                  .beamToReplacementNamed(SettingScreen.screenName);
-            },
-            icon: Icon(Icons.settings, color: theme.colorScheme.onPrimary)),
-      ],
-      backgroundColor: theme.colorScheme.primary,
-    );
+    return IconButton(
+        onPressed: () {
+          Beamer.of(context).beamToReplacementNamed(SettingScreen.screenName);
+        },
+        icon: Icon(Icons.settings, color: theme.colorScheme.onPrimary));
   }
 
   Widget _buildImage(ProfileState state) {
