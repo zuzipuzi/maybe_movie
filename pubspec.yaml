@@ -1,0 +1,76 @@
+name: maybe_movie
+description: Maybe movie?
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.16.2 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  firebase_core: ^1.19.1
+  firebase_auth: ^3.6.2
+  cloud_firestore: ^3.2.1
+  google_sign_in: ^5.4.0
+  firebase_analytics: ^9.1.10
+  get_it: ^7.2.0
+  injectable: ^1.5.3
+  flutter_bloc: ^8.0.1
+  logger: ^1.1.0
+  injectable_generator: ^1.5.3
+  beamer: ^1.5.0
+  json_annotation: ^4.6.0
+  freezed_annotation: ^2.0.3
+  dio: ^4.0.6
+  easy_localization: ^3.0.0
+  equatable: ^2.0.3
+  flutter_svg: ^0.22.0
+  numberpicker: ^2.1.1
+  flutter_picker: ^2.0.5
+  image_picker: ^0.8.5+3
+  firebase_storage: ^10.3.4
+  path_provider: ^2.0.11
+  firebase_database: ^9.1.1
+  extended_image: ^4.2.1
+  expandable_page_view: ^1.0.13
+
+dev_dependencies:
+  flutter_lints: ^1.0.0
+  flutter_test:
+    sdk: flutter
+  freezed: 2.0.3+1
+  build_runner: ^2.1.11
+  json_serializable: ^6.2.0
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/translations/
+  fonts:
+    - family: FiraSans
+      fonts:
+        - asset: assets/fonts/FiraSans100.ttf
+          weight: 100
+        - asset: assets/fonts/FiraSans200.ttf
+          weight: 200
+        - asset: assets/fonts/FiraSans300.ttf
+          weight: 300
+        - asset: assets/fonts/FiraSans400.ttf
+          weight: 400
+        - asset: assets/fonts/FiraSans500.ttf
+          weight: 500
+        - asset: assets/fonts/FiraSans600.ttf
+          weight: 600
+        - asset: assets/fonts/FiraSans700.ttf
+          weight: 700
+        - asset: assets/fonts/FiraSans800.ttf
+          weight: 800
+        - asset: assets/fonts/FiraSans900.ttf
+          weight: 900
